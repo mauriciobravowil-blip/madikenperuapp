@@ -1,0 +1,33 @@
+# API de MADIKEN PERÚ para Render (Python + disco persistente).
+# 1) Crea el servicio desde este archivo.
+# 2) Ya viene configurado con tu URL real de Netlify.
+# 3) El disco /data conserva la base y las fotos aunque reinicies.
+services:
+  - type: web
+    name: madiken-api
+    env: python
+    region: oregon
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: |
+      mkdir -p /data
+      [ -f /data/madiken.db ] || cp data/madiken.db /data/madiken.db
+      [ -d /data/uploads ] || cp -r public/uploads /data/uploads
+      python run.py
+    envVars:
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: TRUSTED_PROXY
+        value: "1"
+      - key: MADIKEN_BASE_URL
+        value: https://madikenperuapp.netlify.app
+      - key: MADIKEN_FRONTEND_URL
+        value: https://madikenperuapp.netlify.app
+      - key: MADIKEN_DB
+        value: /data/madiken.db
+      - key: MADIKEN_UPLOADS
+        value: /data/uploads
+    disk:
+      name: madiken-data
+      mountPath: /data
+      sizeGB: 1

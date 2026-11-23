@@ -1,0 +1,6 @@
+# MADIKEN PERÚ no requiere dependencias externas.
+# Usa Python 3.10+ (probado con Python 3.13) y su biblioteca estándar:
+#   http.server, sqlite3, hashlib.scrypt, json, urllib, pathlib.
+#
+# Opcional: para integrar un proveedor de IA externo configura
+# AI_API_KEY, AI_API_URL y AI_MODEL como variables de entorno del servidor.
